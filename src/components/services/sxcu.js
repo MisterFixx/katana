@@ -20,12 +20,24 @@
 const request = require('request')
 const fs = require('fs')
 
+//insert your sxcu upload domain here.
+const SXCU_UPLOAD_DOMAIN = "sxcu.net"
+
+//change this to an upload token if you're using a private domain.
+const SXCU_TOKEN = null
+
+//change this to a collection ID if you want to upload your images to a collection on sxcu.net.
+const SXCU_COLLECTION_ID = null
+
+//change this to a collection token if you are uploading to a private collection.
+const SXCU_COLLECTION_TOKEN = null
+
 module.exports = class {
   static upload (file, callback) {
     console.log('Uploading image to Sxcu...')
 
     const options = {
-      url: 'https://sxcu.net/upload',
+      url: 'https://'+SXCU_UPLOAD_DOMAIN+'/upload',
       headers: {
         'User-Agent': `Katana`
       }
@@ -47,8 +59,15 @@ module.exports = class {
     })
 
     let form = post.form()
-
-//  form.append('token', 'token-for-custom-sxcu-urls')
     form.append('image', fs.createReadStream(file))
+    if(SXCU_TOKEN !== null){
+      form.append('token', SXCU_TOKEN)
+    }
+    if(SXCU_COLLECTION_ID !== null){
+       form.append('collection', SXCU_COLLECTION_ID)
+    }
+    if(SXCU_COLLECTION_TOKEN !== null){
+      form.append('collection_token', SXCU_COLLECTION_TOKEN)
+    }
   }
 }
