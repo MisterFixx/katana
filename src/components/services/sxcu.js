@@ -33,7 +33,7 @@ const SXCU_COLLECTION_ID = null
 const SXCU_COLLECTION_TOKEN = null
 
 //Should sxcu.net return an image page (mostly for the OpenGraph embedding in various platforms)
-const EMBED = true;
+const EMBED = true
 
 
 module.exports = class {
