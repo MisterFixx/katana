@@ -32,6 +32,10 @@ const SXCU_COLLECTION_ID = null
 //change this to a collection token if you are uploading to a private collection.
 const SXCU_COLLECTION_TOKEN = null
 
+//Should sxcu.net return an image page (mostly for the OpenGraph embedding in various platforms)
+const EMBED = true;
+
+
 module.exports = class {
   static upload (file, callback) {
     console.log('Uploading image to Sxcu...')
@@ -39,7 +43,7 @@ module.exports = class {
     const options = {
       url: 'https://'+SXCU_UPLOAD_DOMAIN+'/upload',
       headers: {
-        'User-Agent': `Katana`
+        'User-Agent': 'Katana'
       }
     }
 
@@ -68,6 +72,9 @@ module.exports = class {
     }
     if(SXCU_COLLECTION_TOKEN !== null){
       form.append('collection_token', SXCU_COLLECTION_TOKEN)
+    }
+    if(EMBED == false){
+      form.append('noembed', 'true')
     }
   }
 }
